@@ -8,5 +8,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sasaplus1/local-proxy-kit.git"
+  },
+  "scripts": {
+    "fixpack": "npx fixpack"
   }
 }
