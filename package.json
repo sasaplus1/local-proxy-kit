@@ -3,6 +3,10 @@
   "description": "Local Proxy tools",
   "version": "0.0.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
+  "devDependencies": {
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.0"
+  },
   "license": "MIT",
   "readmeFilename": "README.md",
   "repository": {
@@ -10,6 +14,7 @@
     "url": "https://github.com/sasaplus1/local-proxy-kit.git"
   },
   "scripts": {
-    "fixpack": "npx fixpack"
+    "fixpack": "npx fixpack",
+    "precommit": "lint-staged"
   }
 }
