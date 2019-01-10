@@ -22,8 +22,8 @@ const log = debug(scriptName);
 
 commander
   .description('start Local Proxy server')
-  .option('-c, --config <config>', 'configuration file')
-  .option('-C, --cert-options <json>', 'certificate options', JSON.parse)
+  .option('-c, --config <file>', 'configuration file')
+  .option('-C, --cert <file>', 'certificate file')
   .option(
     '-d, --document-root <dir>',
     'document root directory',
@@ -34,7 +34,8 @@ commander
     'filter configuration for interceptor',
     JSON.parse
   )
-  .option('-p, --port <port>', 'port number', /^\d+$/, 8087)
+  .option('-k, --key <file>', 'key file')
+  .option('-p, --port <number>', 'port number', /^\d+$/, 8087)
   .option('-s, --https', 'use HTTPS')
   .version(meta.version, '-v, --version')
   .parse(process.argv);
