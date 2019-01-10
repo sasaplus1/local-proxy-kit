@@ -45,7 +45,7 @@ const searchResult = config ? explorer.loadSync(config) : explorer.searchSync();
 
 const rc = searchResult ? searchResult.config : {};
 
-log(rc);
+log('rc: %O', rc);
 
 // NOTE: get long option names
 const optionKeys = commander.options.map(option => camelCase(option.long));
@@ -55,7 +55,7 @@ const switches = pickBy(commander, (value, key) => optionKeys.includes(key));
 
 const options = Object.assign({}, rc, switches);
 
-log(options);
+log('options: %O', options);
 
 const { documentRoot } = options;
 
