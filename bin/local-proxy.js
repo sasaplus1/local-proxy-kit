@@ -33,7 +33,7 @@ commander
     'filter configuration for interceptor',
     JSON.parse
   )
-  .option('-p, --port <port>', 'port number', /^\d+/)
+  .option('-p, --port <port>', 'port number', /^\d+$/, 8087)
   .option('-s, --https', 'use HTTPS')
   .version(meta.version, '-v, --version')
   .parse(process.argv);
