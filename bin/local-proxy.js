@@ -34,7 +34,7 @@ commander
     JSON.parse
   )
   .option('-p, --port <port>', 'port number', /^\d+/)
-  .option('-s, --ssl', 'use SSL')
+  .option('-s, --https', 'use HTTPS')
   .version(meta.version, '-v, --version')
   .parse(process.argv);
 
