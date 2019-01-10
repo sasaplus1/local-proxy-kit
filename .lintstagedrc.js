@@ -1,4 +1,6 @@
 module.exports = {
-  '*.js': 'npm run lint',
-  'package.json': ['npm run fixpack', 'git diff --exit-code --quiet']
+  linters: {
+    '*.js': 'npx --no-install eslint',
+    'package.json': ['npm run fixpack', 'git diff --exit-code --quiet']
+  }
 };
