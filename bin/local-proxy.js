@@ -23,7 +23,11 @@ commander
   .description('start Local Proxy server')
   .option('-c, --config <config>', 'configuration file')
   .option('-C, --cert-options <json>', 'certificate options', JSON.parse)
-  .option('-d, --document-root <dir>', 'document root directory')
+  .option(
+    '-d, --document-root <dir>',
+    'document root directory',
+    path.resolve(process.cwd(), 'files')
+  )
   .option(
     '-f, --filter <json>',
     'filter configuration for interceptor',
