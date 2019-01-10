@@ -10,6 +10,8 @@ const debug = require('debug');
 const camelCase = require('lodash.camelcase');
 const pickBy = require('lodash.pickby');
 
+const { runLocalProxy } = require('../src/local-proxy.js');
+
 const meta = require('../package.json');
 
 const scriptName = path.basename(__filename, '.js');
@@ -65,3 +67,5 @@ if (!fs.existsSync(documentRoot)) {
   commander.outputHelp();
   process.exit(1);
 }
+
+runLocalProxy(options);
