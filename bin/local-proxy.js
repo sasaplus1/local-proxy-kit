@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const path = require('path');
 
 const { Command } = require('commander');
@@ -59,7 +60,7 @@ log('options: %O', options);
 
 const { documentRoot } = options;
 
-if (!documentRoot) {
+if (!fs.existsSync(documentRoot)) {
   commander.outputHelp();
   process.exit(1);
 }
