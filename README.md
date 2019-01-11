@@ -1,5 +1,6 @@
 # local-proxy-kit
 
+[![Build Status](https://travis-ci.org/sasaplus1/local-proxy-kit.svg?branch=master)](https://travis-ci.org/sasaplus1/local-proxy-kit)
 [![NPM version](https://badge.fury.io/js/local-proxy-kit.svg)](http://badge.fury.io/js/local-proxy-kit)
 
 Local Proxy tools
