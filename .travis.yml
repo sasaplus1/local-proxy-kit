@@ -16,6 +16,3 @@ git:
   depth: 3
 
 cache: npm
-
-notifications:
-  email: false
