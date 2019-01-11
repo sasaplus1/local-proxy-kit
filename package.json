@@ -42,6 +42,7 @@
     "fix": "eslint --fix .",
     "fixpack": "npx fixpack",
     "lint": "eslint .",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "test": "npm run lint"
   }
 }
