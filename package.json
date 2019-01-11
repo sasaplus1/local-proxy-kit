@@ -23,6 +23,9 @@
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3"
   },
+  "engines": {
+    "node": ">=7.6"
+  },
   "files": [
     "bin",
     "index.js",
