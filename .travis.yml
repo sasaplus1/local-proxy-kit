@@ -1,0 +1,23 @@
+os: linux
+
+dist: xenial
+
+sudo: false
+
+language: node_js
+
+node_js:
+  - "7"
+  - "8"
+  - "9"
+  - "10"
+  - "11"
+  - "lts/*"
+
+git:
+  depth: 3
+
+cache: npm
+
+notifications:
+  email: false
