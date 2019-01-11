@@ -9,7 +9,7 @@ Local Proxy tools
 
 - [CocProxy](http://coderepos.org/share/wiki/CocProxy)
 - [cocproxy for nginx](https://gist.github.com/hotchpotch/990354)
-  - [CocProxy for nginx](http://subtech.g.hatena.ne.jp/secondlife/20110525/1306299472)
+  - [blog entry](http://subtech.g.hatena.ne.jp/secondlife/20110525/1306299472)
 - [node-CocProxy](https://github.com/azu/node-cocproxy)
 
 ## Installation
