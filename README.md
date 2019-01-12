@@ -5,11 +5,6 @@
 
 CocProxy implement by node.js
 
-- [CocProxy](http://coderepos.org/share/wiki/CocProxy)
-- [cocproxy for nginx](https://gist.github.com/hotchpotch/990354)
-  - [blog entry](http://subtech.g.hatena.ne.jp/secondlife/20110525/1306299472)
-- [node-CocProxy](https://github.com/azu/node-cocproxy)
-
 ## Installation
 
 ```console
@@ -22,6 +17,13 @@ $ npm install -g @sasaplus1/cocproxy
 $ mkdir files
 $ cocproxy
 ```
+
+## Other CocProxy implementations
+
+- [CocProxy](http://coderepos.org/share/wiki/CocProxy)
+- [cocproxy for nginx](https://gist.github.com/hotchpotch/990354)
+  - [blog entry](http://subtech.g.hatena.ne.jp/secondlife/20110525/1306299472)
+- [node-CocProxy](https://github.com/azu/node-cocproxy)
 
 ## License
 
