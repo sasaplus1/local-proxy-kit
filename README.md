@@ -12,7 +12,7 @@ CocProxy implement by node.js
 
 ## Installation
 
-```sh
+```console
 $ npm install -g @sasaplus1/cocproxy
 ```
 
