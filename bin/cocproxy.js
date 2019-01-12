@@ -10,7 +10,7 @@ const debug = require('debug');
 const camelCase = require('lodash.camelcase');
 const pickBy = require('lodash.pickby');
 
-const { runLocalProxy } = require('../src/local-proxy.js');
+const { runCocProxy } = require('../index.js');
 
 const meta = require('../package.json');
 
@@ -23,7 +23,7 @@ const explorer = cosmiconfig(configName);
 const log = debug(scriptName);
 
 commander
-  .description('start Local Proxy server')
+  .description('start CocProxy server')
   .option('-c, --config <file>', 'configuration file')
   .option('-C, --cert <file>', 'certificate file')
   .option(
@@ -68,4 +68,4 @@ if (!fs.existsSync(documentRoot)) {
   process.exit(1);
 }
 
-runLocalProxy(options);
+runCocProxy(options);

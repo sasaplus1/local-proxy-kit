@@ -19,7 +19,7 @@ const scriptName = path.basename(__filename, '.js');
  * @see http://greim.github.io/hoxy/#intercept-https
  * @see https://www.deineagentur.com/projects/pem/module-pem.html#.createCertificate
  */
-async function createLocalProxyCertificate(options = {}) {
+async function createCocProxyCertificate(options = {}) {
   // NOTE: default value get from http://greim.github.io/hoxy/#intercept-https
   // NOTE: https://www.deineagentur.com/projects/pem/module-pem.html#.createCertificate
   const certificateOptions = Object.assign(
@@ -59,7 +59,7 @@ async function createProxyServer(options = {}) {
       key: fs.readFileSync(key)
     });
   } else if (https) {
-    const { certificate, serviceKey } = await createLocalProxyCertificate();
+    const { certificate, serviceKey } = await createCocProxyCertificate();
 
     Object.assign(certificateOptions, {
       cert: certificate,
@@ -94,7 +94,7 @@ function getReplaceHandler(documentRoot) {
 }
 
 /**
- * run Local Proxy
+ * run CocProxy
  *
  * @param {Object} [options={}]
  * @param {Object} [options.cert]
@@ -105,7 +105,7 @@ function getReplaceHandler(documentRoot) {
  * @param {number} [options.port]
  * @return {Promise}
  */
-async function runLocalProxy(options = {}) {
+async function runCocProxy(options = {}) {
   const { cert, documentRoot, filter, https, key, port } = options;
 
   const proxy = await createProxyServer({ cert, https, key });
@@ -132,8 +132,8 @@ async function runLocalProxy(options = {}) {
 }
 
 module.exports = {
-  createLocalProxyCertificate,
+  createCocProxyCertificate,
   createProxyServer,
   getReplaceHandler,
-  runLocalProxy
+  runCocProxy
 };
