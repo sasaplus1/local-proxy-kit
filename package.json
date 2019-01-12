@@ -1,10 +1,10 @@
 {
-  "name": "local-proxy-kit",
-  "description": "Local Proxy tools",
+  "name": "@sasaplus1/cocproxy",
+  "description": "cocproxy implemented by node.js",
   "version": "1.0.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "bin": {
-    "local-proxy": "./bin/local-proxy.js"
+    "cocproxy": "./bin/cocproxy.js"
   },
   "dependencies": {
     "commander": "^2.19.0",
@@ -36,7 +36,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sasaplus1/local-proxy-kit.git"
+    "url": "https://github.com/sasaplus1/cocproxy.git"
   },
   "scripts": {
     "fix": "eslint --fix .",
