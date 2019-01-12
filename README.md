@@ -1,11 +1,9 @@
-# local-proxy-kit
+# cocproxy
 
-[![Build Status](https://travis-ci.org/sasaplus1/local-proxy-kit.svg?branch=master)](https://travis-ci.org/sasaplus1/local-proxy-kit)
-[![NPM version](https://badge.fury.io/js/local-proxy-kit.svg)](http://badge.fury.io/js/local-proxy-kit)
+[![Build Status](https://travis-ci.org/sasaplus1/cocproxy.svg?branch=master)](https://travis-ci.org/sasaplus1/cocproxy)
+[![NPM version](https://badge.fury.io/js/@sasaplus1/cocproxy.svg)](http://badge.fury.io/js/@sasaplus1/cocproxy)
 
-Local Proxy tools
-
-`local-proxy` inspired by CocProxy:
+CocProxy implement by node.js
 
 - [CocProxy](http://coderepos.org/share/wiki/CocProxy)
 - [cocproxy for nginx](https://gist.github.com/hotchpotch/990354)
@@ -15,14 +13,14 @@ Local Proxy tools
 ## Installation
 
 ```sh
-$ npm install -g local-proxy-kit
+$ npm install -g @sasaplus1/cocproxy
 ```
 
 ## Usage
 
 ```console
 $ mkdir files
-$ local-proxy
+$ cocproxy
 ```
 
 ## License
