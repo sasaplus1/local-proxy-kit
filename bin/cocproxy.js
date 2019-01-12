@@ -38,7 +38,7 @@ commander
   )
   .option('-k, --key <file>', 'key file')
   .option('-p, --port <number>', 'port number', /^\d+$/, 8087)
-  .option('-s, --https', 'use HTTPS')
+  .option('-s, --https', 'use HTTPS, cert and key are create on the fly')
   .version(meta.version, '-v, --version')
   .parse(process.argv);
 
