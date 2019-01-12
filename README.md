@@ -1,7 +1,7 @@
 # cocproxy
 
 [![Build Status](https://travis-ci.org/sasaplus1/cocproxy.svg?branch=master)](https://travis-ci.org/sasaplus1/cocproxy)
-[![NPM version](https://badge.fury.io/js/@sasaplus1/cocproxy.svg)](http://badge.fury.io/js/@sasaplus1/cocproxy)
+[![npm version](https://badge.fury.io/js/%40sasaplus1%2Fcocproxy.svg)](https://badge.fury.io/js/%40sasaplus1%2Fcocproxy)
 
 CocProxy implement by node.js
 
