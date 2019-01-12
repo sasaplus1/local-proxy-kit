@@ -7,9 +7,11 @@ const pem = require('pem');
 
 const pickBy = require('lodash.pickby');
 
+const meta = require('./package.json');
+
 const createCertificate = util.promisify(pem.createCertificate);
 
-const scriptName = path.basename(__filename, '.js');
+const moduleName = path.basename(meta.name);
 
 /**
  * create certificate
@@ -125,7 +127,7 @@ async function runCocProxy(options = {}) {
   });
 
   proxy.listen(port, function() {
-    process.stdout.write(`starting ${scriptName} at ${port}\n`);
+    process.stdout.write(`starting ${moduleName} at ${port}\n`);
   });
 
   return proxy;
