@@ -55,7 +55,10 @@ log('rc: %O', rc);
 const optionKeys = commander.options.map(option => camelCase(option.long));
 
 // NOTE: get option values
-const switches = pickBy(commander, (value, key) => optionKeys.includes(key));
+const switches = pickBy(
+  commander,
+  (value, key) => key !== 'version' && optionKeys.includes(key)
+);
 
 const options = Object.assign({}, rc, switches);
 
