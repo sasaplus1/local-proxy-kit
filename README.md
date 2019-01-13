@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sasaplus1/assets-proxy.svg?branch=master)](https://travis-ci.org/sasaplus1/assets-proxy)
 [![npm version](https://badge.fury.io/js/assets-proxy.svg)](https://badge.fury.io/js/assets-proxy)
+[![renovate](https://badges.renovateapi.com/github/sasaplus1/assets-proxy)](https://renovatebot.com)
 
 assets proxy
 
