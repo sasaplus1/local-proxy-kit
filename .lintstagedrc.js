@@ -6,12 +6,12 @@ module.exports = {
       'git diff --exit-code --quiet'
     ],
     '!(package|package-lock).json': [
-      'npx --no-install prettier --parser json --write',
+      'npx --no-install prettier --parser json-stringify --write',
       'git diff --exit-code --quiet'
     ],
     'package.json': [
       'npx fixpack',
-      'npx --no-install prettier --parser json --write',
+      'npx --no-install prettier --parser json-stringify --write',
       'git diff --exit-code --quiet'
     ]
   }
