@@ -186,7 +186,7 @@ function runAssetsProxy(options = {}) {
   });
 
   proxy.intercept(filterOptions, function(req, resp, cycle) {
-    process.stdout.write('request: ' + req.fullUrl() + '\n');
+    process.stdout.write(`request: ${req.fullUrl()}\n`);
 
     return replaceHandler(req, resp, cycle);
   });
