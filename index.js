@@ -126,6 +126,16 @@ async function runCocProxy(options = {}) {
     return replaceHandler(req, resp, cycle);
   });
 
+  proxy.log('error warn', function(event) {
+    const { error, level, message } = event;
+
+    process.stderr.write(`${level}: ${message}`);
+
+    if (error) {
+      process.stderr.write(error.stack);
+    }
+  });
+
   proxy.listen(port, function() {
     process.stdout.write(`starting ${moduleName} at ${port}\n`);
   });
