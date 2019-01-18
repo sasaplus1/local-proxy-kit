@@ -1,10 +1,10 @@
 {
-  "name": "@sasaplus1/cocproxy",
-  "description": "cocproxy implemented by node.js",
+  "name": "assets-proxy",
+  "description": "assets proxy",
   "version": "1.0.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "bin": {
-    "cocproxy": "./bin/cocproxy.js"
+    "assets-proxy": "./bin/assets-proxy.js"
   },
   "dependencies": {
     "commander": "^2.19.0",
@@ -33,7 +33,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sasaplus1/cocproxy.git"
+    "url": "https://github.com/sasaplus1/assets-proxy.git"
   },
   "scripts": {
     "fix": "eslint --fix .",

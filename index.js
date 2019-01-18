@@ -161,7 +161,7 @@ function getReplaceHandler(documentRoot) {
 }
 
 /**
- * run CocProxy
+ * run AssetsProxy
  *
  * @param {Object} [options={}]
  * @param {Object} [options.cert]
@@ -172,7 +172,7 @@ function getReplaceHandler(documentRoot) {
  * @param {number} [options.port]
  * @return {Proxy}
  */
-function runCocProxy(options = {}) {
+function runAssetsProxy(options = {}) {
   const { cert, documentRoot, filter, https, key, port } = options;
 
   const proxy = createProxyServer({ cert, https, key });
@@ -212,5 +212,5 @@ module.exports = {
   createCertificate,
   createProxyServer,
   getReplaceHandler,
-  runCocProxy
+  runAssetsProxy
 };
