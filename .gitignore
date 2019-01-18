@@ -81,7 +81,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-### local-proxy-kit
+### cocproxy
 
 files/*
 !files/.gitkeep
