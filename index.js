@@ -1,15 +1,14 @@
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 
 const hoxy = require('hoxy');
-const pem = require('pem');
+const forge = require('node-forge');
 
 const pickBy = require('lodash.pickby');
 
 const meta = require('./package.json');
 
-const createCertificate = util.promisify(pem.createCertificate);
+const { pki } = forge;
 
 const moduleName = path.basename(meta.name);
 
@@ -17,28 +16,94 @@ const moduleName = path.basename(meta.name);
  * create certificate
  *
  * @param {Object} [options={}]
- * @return {Promise}
+ * @param {Object[]} [options.attributes=[]]
+ * @param {Object[]} [options.extensions=[]]
+ * @return {Object}
  * @see http://greim.github.io/hoxy/#intercept-https
- * @see https://www.deineagentur.com/projects/pem/module-pem.html#.createCertificate
+ * @see https://github.com/digitalbazaar/forge#x509
  */
-async function createCocProxyCertificate(options = {}) {
-  // NOTE: default value get from http://greim.github.io/hoxy/#intercept-https
-  // NOTE: https://www.deineagentur.com/projects/pem/module-pem.html#.createCertificate
-  const certificateOptions = Object.assign(
-    {
-      // NOTE: commonName defaults to 'localhost'
-      // commonName: 'example.com',
-      country: 'US',
-      days: 1024,
-      locality: 'Provo',
-      organization: 'ACME Signing Authority Inc',
-      selfSigned: true,
-      state: 'Utah'
-    },
-    options
-  );
+function createCertificate(options = {}) {
+  const keys = pki.rsa.generateKeyPair(2048);
+  const cert = pki.createCertificate();
 
-  return await createCertificate.call(pem, certificateOptions);
+  cert.publicKey = keys.publicKey;
+  cert.serialNumber = '01';
+
+  cert.validity.notAfter.setDate(cert.validity.notAfter.getDate() + 1024);
+
+  const { attributes = [], extensions = [] } = options;
+
+  // NOTE: default value get from http://greim.github.io/hoxy/#intercept-https
+  // NOTE: https://github.com/digitalbazaar/forge#x509
+  const attributesOptions =
+    attributes.length > 0
+      ? attributes
+      : [
+          {
+            shortName: 'CN',
+            value: 'localhost'
+          },
+          {
+            shortName: 'C',
+            value: 'US'
+          },
+          {
+            shortName: 'ST',
+            value: 'Utah'
+          },
+          {
+            shortName: 'L',
+            value: 'Provo'
+          },
+          {
+            shortName: 'O',
+            value: 'ACME Signing Authority Inc'
+          }
+        ];
+
+  cert.setSubject(attributesOptions);
+  cert.setIssuer(attributesOptions);
+
+  const extensionsOptions =
+    extensions.length > 0
+      ? extensions
+      : [
+          {
+            cA: true,
+            name: 'basicConstraints'
+          },
+          {
+            cRLSign: true,
+            digitalSignature: true,
+            keyCertSign: true,
+            name: 'keyUsage'
+          },
+          {
+            name: 'subjectKeyIdentifier'
+          },
+          {
+            name: 'subjectAltName',
+            altNames: [
+              {
+                type: 2,
+                value: 'localhost'
+              },
+              {
+                type: 7,
+                ip: '127.0.0.1'
+              }
+            ]
+          }
+        ];
+
+  cert.setExtensions(extensionsOptions);
+
+  cert.sign(keys.privateKey, forge.md.sha256.create());
+
+  return {
+    certificate: pki.certificateToPem(cert),
+    serviceKey: pki.privateKeyToPem(keys.privateKey)
+  };
 }
 
 /**
@@ -48,9 +113,9 @@ async function createCocProxyCertificate(options = {}) {
  * @param {string} [options.cert='']
  * @param {boolean} [options.https=false]
  * @param {string} [options.key='']
- * @return {Promise}
+ * @return {Proxy}
  */
-async function createProxyServer(options = {}) {
+function createProxyServer(options = {}) {
   const { cert = '', https = false, key = '', ...spreadOptions } = options;
 
   const certificateOptions = {};
@@ -61,7 +126,7 @@ async function createProxyServer(options = {}) {
       key: fs.readFileSync(key)
     });
   } else if (https) {
-    const { certificate, serviceKey } = await createCocProxyCertificate();
+    const { certificate, serviceKey } = createCertificate();
 
     Object.assign(certificateOptions, {
       cert: certificate,
@@ -105,12 +170,12 @@ function getReplaceHandler(documentRoot) {
  * @param {boolean} [options.https]
  * @param {string} [options.key]
  * @param {number} [options.port]
- * @return {Promise}
+ * @return {Proxy}
  */
-async function runCocProxy(options = {}) {
+function runCocProxy(options = {}) {
   const { cert, documentRoot, filter, https, key, port } = options;
 
-  const proxy = await createProxyServer({ cert, https, key });
+  const proxy = createProxyServer({ cert, https, key });
 
   const replaceHandler = getReplaceHandler(documentRoot);
 
@@ -144,7 +209,7 @@ async function runCocProxy(options = {}) {
 }
 
 module.exports = {
-  createCocProxyCertificate,
+  createCertificate,
   createProxyServer,
   getReplaceHandler,
   runCocProxy
