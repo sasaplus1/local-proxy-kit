@@ -4,6 +4,9 @@ dist: xenial
 
 sudo: false
 
+addons:
+  chrome: beta
+
 language: node_js
 
 node_js:
