@@ -31,70 +31,23 @@ function createCertificate(options = {}) {
 
   cert.validity.notAfter.setDate(cert.validity.notAfter.getDate() + 1024);
 
+  const {
+    attributes: defaultAttributes,
+    extensions: defaultExtensions
+  } = getCertificateOptions();
+
   const { attributes = [], extensions = [] } = options;
 
   // NOTE: default value get from http://greim.github.io/hoxy/#intercept-https
   // NOTE: https://github.com/digitalbazaar/forge#x509
   const attributesOptions =
-    attributes.length > 0
-      ? attributes
-      : [
-          {
-            shortName: 'CN',
-            value: 'localhost'
-          },
-          {
-            shortName: 'C',
-            value: 'US'
-          },
-          {
-            shortName: 'ST',
-            value: 'Utah'
-          },
-          {
-            shortName: 'L',
-            value: 'Provo'
-          },
-          {
-            shortName: 'O',
-            value: 'ACME Signing Authority Inc'
-          }
-        ];
+    attributes.length > 0 ? attributes : defaultAttributes;
 
   cert.setSubject(attributesOptions);
   cert.setIssuer(attributesOptions);
 
   const extensionsOptions =
-    extensions.length > 0
-      ? extensions
-      : [
-          {
-            cA: true,
-            name: 'basicConstraints'
-          },
-          {
-            cRLSign: true,
-            digitalSignature: true,
-            keyCertSign: true,
-            name: 'keyUsage'
-          },
-          {
-            name: 'subjectKeyIdentifier'
-          },
-          {
-            name: 'subjectAltName',
-            altNames: [
-              {
-                type: 2,
-                value: 'localhost'
-              },
-              {
-                type: 7,
-                ip: '127.0.0.1'
-              }
-            ]
-          }
-        ];
+    extensions.length > 0 ? extensions : defaultExtensions;
 
   cert.setExtensions(extensionsOptions);
 
@@ -142,6 +95,70 @@ function createProxyServer(options = {}) {
   );
 
   return hoxy.createServer(serverOptions);
+}
+
+/**
+ * get options for create certificate and private key
+ *
+ * @param {Object}
+ */
+function getCertificateOptions() {
+  const attributes = [
+    {
+      shortName: 'CN',
+      value: 'localhost'
+    },
+    {
+      shortName: 'C',
+      value: 'US'
+    },
+    {
+      shortName: 'ST',
+      value: 'Utah'
+    },
+    {
+      shortName: 'L',
+      value: 'Provo'
+    },
+    {
+      shortName: 'O',
+      value: 'ACME Signing Authority Inc'
+    }
+  ];
+
+  const extensions = [
+    {
+      cA: true,
+      name: 'basicConstraints'
+    },
+    {
+      cRLSign: true,
+      digitalSignature: true,
+      keyCertSign: true,
+      name: 'keyUsage'
+    },
+    {
+      name: 'subjectKeyIdentifier'
+    },
+    {
+      name: 'subjectAltName',
+      altNames: [
+        {
+          type: 2,
+          value: 'localhost'
+        },
+        {
+          type: 7,
+          ip: '127.0.0.1'
+        }
+      ]
+    }
+  ];
+
+  return {
+    attributes,
+    extensions
+  };
 }
 
 /**
@@ -211,6 +228,7 @@ function runAssetsProxy(options = {}) {
 module.exports = {
   createCertificate,
   createProxyServer,
+  getCertificateOptions,
   getReplaceHandler,
   runAssetsProxy
 };
