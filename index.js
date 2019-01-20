@@ -100,31 +100,59 @@ function createProxyServer(options = {}) {
 /**
  * get options for create certificate and private key
  *
- * @param {Object}
+ * @param {Object} [options={}]
+ * @param {Object} [options.attributes={}]
+ * @param {Object} [options.subjectAltName=[]]
+ * @return {Object}
  */
-function getCertificateOptions() {
+function getCertificateOptions(options = {}) {
+  const { attributes: attrs = {}, subjectAltName = [] } = options;
+
   const attributes = [
     {
       shortName: 'CN',
-      value: 'localhost'
+      value: attrs.CN || 'localhost'
     },
     {
       shortName: 'C',
-      value: 'US'
+      value: attrs.C || 'US'
     },
     {
       shortName: 'ST',
-      value: 'Utah'
+      value: attrs.ST || 'Utah'
     },
     {
       shortName: 'L',
-      value: 'Provo'
+      value: attrs.L || 'Provo'
     },
     {
       shortName: 'O',
-      value: 'ACME Signing Authority Inc'
+      value: attrs.O || 'ACME Signing Authority Inc'
     }
   ];
+
+  if (attrs.OU) {
+    Object.assign(attributes, {
+      shortName: 'OU',
+      value: attrs.OU
+    });
+  }
+
+  const san = subjectAltName.map(function(host) {
+    if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(host) || /^[\dA-F:]+$/i.test(host)) {
+      return {
+        // NOTE: IP address
+        type: 7,
+        value: host
+      };
+    }
+
+    return {
+      // NOTE: domain
+      type: 2,
+      value: host
+    };
+  });
 
   const extensions = [
     {
@@ -142,16 +170,19 @@ function getCertificateOptions() {
     },
     {
       name: 'subjectAltName',
-      altNames: [
-        {
-          type: 2,
-          value: 'localhost'
-        },
-        {
-          type: 7,
-          ip: '127.0.0.1'
-        }
-      ]
+      altNames:
+        san.length > 0
+          ? san
+          : [
+              {
+                type: 2,
+                value: 'localhost'
+              },
+              {
+                type: 7,
+                ip: '127.0.0.1'
+              }
+            ]
     }
   ];
 
