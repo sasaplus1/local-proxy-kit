@@ -46,7 +46,7 @@
     "fix": "eslint --fix .",
     "fixpack": "npx fixpack",
     "lint": "eslint .",
-    "mocha": "BABEL_ENV=test mocha --require @babel/register",
+    "mocha": "BABEL_ENV=test mocha --require @babel/register --timeout 60000",
     "precommit": "lint-staged",
     "test": "npm run lint && npm run mocha"
   }
