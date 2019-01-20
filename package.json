@@ -19,6 +19,7 @@
     "@babel/core": "7.2.2",
     "@babel/register": "7.0.0",
     "babel-preset-power-assert": "3.0.0",
+    "chrome-launcher": "^0.10.5",
     "eslint": "5.12.1",
     "eslint-config-prettier": "3.5.0",
     "eslint-plugin-prettier": "3.0.1",
@@ -27,7 +28,7 @@
     "mocha": "5.2.0",
     "power-assert": "1.6.1",
     "prettier": "1.15.3",
-    "puppeteer": "1.11.0"
+    "puppeteer-core": "^1.11.0"
   },
   "files": [
     "bin",
@@ -45,7 +46,7 @@
     "fix": "eslint --fix .",
     "fixpack": "npx fixpack",
     "lint": "eslint .",
-    "mocha": "BABEL_ENV=test mocha --require @babel/register",
+    "mocha": "BABEL_ENV=test mocha --require @babel/register --timeout 60000",
     "precommit": "lint-staged",
     "test": "npm run lint && npm run mocha"
   }
