@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "bin": {
-    "assets-proxy": "./bin/assets-proxy.js"
+    "assets-proxy": "./bin/assets-proxy.js",
+    "create-cert": "./bin/create-cert.js"
   },
   "dependencies": {
     "commander": "^2.19.0",
