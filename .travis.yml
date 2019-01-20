@@ -5,6 +5,9 @@ dist: xenial
 sudo: false
 
 addons:
+  apt:
+    packages:
+      - xvfb
   chrome: beta
 
 language: node_js
@@ -19,3 +22,10 @@ git:
   depth: 3
 
 cache: npm
+
+services:
+  - xvfb
+
+script:
+  - npm run lint
+# - xvfb-run -a npm test
