@@ -1,3 +1,7 @@
+# 2.0.0 / 2019-01-21
+
+- fix option processing
+
 # 1.1.0 / 2019-01-21
 
 - add create-cert command
