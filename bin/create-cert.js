@@ -81,16 +81,33 @@ const rc = searchResult ? searchResult.config : {};
 
 log('rc: %O', rc);
 
+const defaultValues = commander.options
+  .filter(option => typeof option.defaultValue !== 'undefined')
+  .reduce(function(acc, option) {
+    const { defaultValue, long } = option;
+
+    return Object.assign(acc, {
+      [camelCase(long)]: defaultValue
+    });
+  }, {});
+
+log('defaultValues: %O', defaultValues);
+
 // NOTE: get long option names
 const optionKeys = commander.options.map(option => camelCase(option.long));
 
 // NOTE: get option values
 const switches = pickBy(
   commander,
-  (value, key) => key !== 'version' && optionKeys.includes(key)
+  (value, key) =>
+    key !== 'version' &&
+    optionKeys.includes(key) &&
+    value !== defaultValues[key]
 );
 
-const options = Object.assign({}, rc, switches);
+log('switches: %O', switches);
+
+const options = Object.assign({}, defaultValues, rc, switches);
 
 log('options: %O', options);
 
