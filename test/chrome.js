@@ -11,6 +11,18 @@ const puppeteer = require('puppeteer-core');
 
 const readFile = util.promisify(fs.readFile);
 
+function waitStartProxy(subprocess) {
+  return new Promise(function(resolve) {
+    subprocess.stdout.on('data', function(data) {
+      const output = data.toString();
+
+      if (/^starting/.test(output)) {
+        resolve();
+      }
+    });
+  });
+}
+
 describe('chrome.js', function() {
   let browser;
 
@@ -55,15 +67,7 @@ describe('chrome.js', function() {
     ]);
 
     try {
-      await new Promise(function(resolve) {
-        subprocess.stdout.on('data', function(data) {
-          const output = data.toString();
-
-          if (/^starting/.test(output)) {
-            resolve();
-          }
-        });
-      });
+      await waitStartProxy(subprocess);
 
       const page = await browser.newPage();
 
@@ -105,15 +109,7 @@ describe('chrome.js', function() {
     ]);
 
     try {
-      await new Promise(function(resolve) {
-        subprocess.stdout.on('data', function(data) {
-          const output = data.toString();
-
-          if (/^starting/.test(output)) {
-            resolve();
-          }
-        });
-      });
+      await waitStartProxy(subprocess);
 
       const page = await browser.newPage();
 
