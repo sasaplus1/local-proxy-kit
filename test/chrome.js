@@ -4,10 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const chromeFinder = require('chrome-launcher/dist/chrome-finder');
-const { DEFAULT_FLAGS } = require('chrome-launcher/dist/flags');
-
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 
 const readFile = util.promisify(fs.readFile);
 
@@ -24,10 +21,6 @@ describe('chrome.js', function() {
   before(async function() {
     const pacPath = path.resolve(__dirname, 'chrome.pac');
 
-    // NOTE: use installed Google Chrome
-    const { [process.platform]: findChrome } = chromeFinder;
-    const [executablePath] = findChrome();
-
     browser = await puppeteer.launch({
       args: [
         '--disable-setuid-sandbox',
@@ -35,8 +28,7 @@ describe('chrome.js', function() {
         '--lang=en-US,en',
         '--no-sandbox',
         `--proxy-pac-url=file://${pacPath}`
-      ].concat(DEFAULT_FLAGS),
-      executablePath,
+      ],
       // NOTE: it option needs if use --proxy-pac-url
       headless: false
     });
