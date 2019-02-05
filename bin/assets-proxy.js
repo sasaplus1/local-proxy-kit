@@ -6,9 +6,9 @@ const path = require('path');
 const { Command } = require('commander');
 const cosmiconfig = require('cosmiconfig');
 const debug = require('debug');
-
 const camelCase = require('lodash.camelcase');
 const pickBy = require('lodash.pickby');
+const notifier = require('node-notifier');
 
 const { runAssetsProxy } = require('../index.js');
 
@@ -37,6 +37,7 @@ commander
     JSON.parse
   )
   .option('-k, --key <file>', 'key file')
+  .option('-n, --notify', 'notify error')
   .option('-p, --port <number>', 'port number', /^\d+$/, 8087)
   .option('-s, --https', 'use HTTPS, cert and key are create on the fly')
   .version(meta.version, '-v, --version')
@@ -83,11 +84,30 @@ const options = Object.assign({}, defaultValues, rc, switches);
 
 log('options: %O', options);
 
-const { documentRoot } = options;
+const { documentRoot, notify: isNotify } = options;
 
 if (!fs.existsSync(documentRoot)) {
   commander.outputHelp();
   process.exit(1);
 }
 
-runAssetsProxy(options);
+const proxy = runAssetsProxy(options);
+
+proxy.log('error warn', function(event) {
+  const { error, level, message } = event;
+
+  if (isNotify) {
+    notifier.notify({
+      title: scriptName,
+      message,
+      sound: true,
+      wait: false
+    });
+  }
+
+  process.stderr.write(`${level}: ${message}`);
+
+  if (error) {
+    process.stderr.write(error.stack);
+  }
+});

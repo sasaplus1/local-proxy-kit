@@ -224,7 +224,6 @@ function runAssetsProxy(options = {}) {
   const { cert, documentRoot, filter, https, key, port } = options;
 
   const proxy = createProxyServer({ cert, https, key });
-
   const replaceHandler = getReplaceHandler(documentRoot);
 
   // NOTE: filter out `as`
@@ -237,16 +236,6 @@ function runAssetsProxy(options = {}) {
     process.stdout.write(`request: ${req.fullUrl()}\n`);
 
     return replaceHandler(req, resp, cycle);
-  });
-
-  proxy.log('error warn', function(event) {
-    const { error, level, message } = event;
-
-    process.stderr.write(`${level}: ${message}`);
-
-    if (error) {
-      process.stderr.write(error.stack);
-    }
   });
 
   proxy.listen(port, function() {
