@@ -200,9 +200,25 @@ function getCertificateOptions(options = {}) {
  * @see http://greim.github.io/hoxy/#proxy-intercept
  */
 function getReplaceHandler(documentRoot) {
+  const absoluteDocumentRoot = path.resolve(documentRoot);
+
   return function replaceHandler(req, resp, cycle) {
+    const pathname = req.url || '';
+
+    if (pathname.endsWith('/')) {
+      return cycle.serve({
+        path: path.join(
+          absoluteDocumentRoot,
+          req.hostname,
+          pathname,
+          'index.html'
+        ),
+        strategy: 'overlay'
+      });
+    }
+
     return cycle.serve({
-      docroot: path.resolve(documentRoot, req.hostname),
+      docroot: path.join(absoluteDocumentRoot, req.hostname),
       strategy: 'overlay'
     });
   };
