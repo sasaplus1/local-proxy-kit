@@ -59,6 +59,18 @@ function createCertificate(options = {}) {
   };
 }
 
+function createClientCertificate(options = {}) {
+  const keys = pki.rsa.generateKeyPair(2048);
+  const csr = forge.pki.createCertificationRequest();
+
+  csr.publicKey = keys.publicKey;
+
+  csr.setSubject();
+  csr.setAttributes();
+
+  csr.sign(keys.privateKey);
+}
+
 /**
  * create proxy server
  *
