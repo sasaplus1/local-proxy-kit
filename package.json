@@ -1,7 +1,7 @@
 {
   "name": "assets-proxy",
   "description": "assets proxy",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": "sasa+1 <sasaplus1@gmail.com>",
   "bin": {
     "assets-proxy": "./bin/assets-proxy.js",
