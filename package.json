@@ -30,7 +30,7 @@
     "lint-staged": "8.1.5",
     "mocha": "6.0.2",
     "power-assert": "1.6.1",
-    "prettier": "1.16.4",
+    "prettier": "1.17.0",
     "puppeteer-core": "1.12.2"
   },
   "files": [
