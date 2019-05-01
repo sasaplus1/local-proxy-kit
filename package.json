@@ -22,7 +22,7 @@
     "@babel/core": "7.4.4",
     "@babel/register": "7.4.4",
     "babel-preset-power-assert": "3.0.0",
-    "chrome-launcher": "0.10.6",
+    "chrome-launcher": "0.10.7",
     "eslint": "5.16.0",
     "eslint-config-prettier": "4.2.0",
     "eslint-plugin-prettier": "3.0.1",
