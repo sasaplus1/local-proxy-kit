@@ -8,7 +8,7 @@
     "create-cert": "./bin/create-cert.js"
   },
   "dependencies": {
-    "commander": "^2.19.0",
+    "commander": "^7.0.0",
     "cosmiconfig": "^5.0.7",
     "debug": "^4.1.1",
     "hoxy": "^3.3.1",
